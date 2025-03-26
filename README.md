@@ -18,9 +18,11 @@
 const joinRight = require("path-right-join");
 
 // Example: Prevent ".." from climbing above `/path`
-const result = joinRight("../", "/path/ab.js");  // "./ab.js"
+const result = joinRight("../", "/path/ab.js");  // "ab.js"
 const result = joinRight('..', 'src', '..', 'dist', 'main.js');  // "main.js"
-const result = joinRight('src//', 'utils\\', '..', 'core');  // "src/utils/"
+const result = joinRight('src//', 'utils\\', '..', 'core');  // "src/utils"
+
+const edge_case = joinRight("/../", "/path/ab.js") // 🛑 /path/ab.js
 ```
 
 ## 📦 Installation

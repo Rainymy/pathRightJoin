@@ -42,16 +42,7 @@ function normalize_paths(paths) {
     return acc;
   }, []);
 
-  console.log(normalized_split)
-
   return normalized_filter.map(v => v === "" ? path.sep : v);
 }
 
-// const result = resolvePathRight('src//', 'utils\\', '..', 'core');
-// const toBeEqual = path.join('src', 'utils/')
-
-// console.log("hello", result, toBeEqual)
-// console.log(path.join("ab.js"), resolvePathRight("/../", "/path/ab.js"))
-
 module.exports = resolvePathRight;
-
