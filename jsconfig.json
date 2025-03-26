@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "ESNext",
+    "moduleResolution": "nodenext",
+    "checkJs": true,
+    "lib": [
+      "ESNext"
+    ]
+  },
+  "typeAcquisition": {
+    "include": [
+      "jest"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

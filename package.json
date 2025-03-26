@@ -1,0 +1,39 @@
+{
+  "name": "path-right-join",
+  "version": "1.0.0",
+  "description": " Right-side join for paths",
+  "main": "./index.js",
+  "type": "commonjs",
+  "scripts": {
+    "build": "node esbuild.js",
+    "package-test": "npm pack --dry-run",
+    "test": "jest"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.esm"
+    }
+  },
+  "files": [
+    "dist/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rainymy/pathRightJoin.git"
+  },
+  "keywords": [
+    "joinPathRight"
+  ],
+  "author": "Rainymy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Rainymy/pathRightJoin/issues"
+  },
+  "homepage": "https://github.com/Rainymy/pathRightJoin#readme",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "esbuild": "^0.25.1",
+    "jest": "^29.7.0"
+  }
+}
