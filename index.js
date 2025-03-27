@@ -1,5 +1,7 @@
 const path = require("path");
 
+const { normalizePath } = require("./src/normalize");
+
 /**
 * Right-side join for paths, ignoring ".." from left segments.
 * @param  {string[]} segments Any number of path segments.
@@ -29,20 +31,14 @@ function resolvePathRight(...segments) {
 * @returns {String[]}
 */
 function normalize_paths(paths) {
-  const normalizedSegments = paths.map(path.normalize).join(path.sep);
-  const normalized_split = normalizedSegments.split(path.sep);
+  const normalizedSegments = paths.map(normalizePath);
+  const normalized_split = normalizedSegments;
 
-  const normalized_filter = normalized_split.reduce((acc, curr, i) => {
-    // remove repeated slashes.
-    if (curr === "" && acc[acc.length - 1] === curr) {
-      return acc;
-    }
+  console.log("normalized_split", normalized_split)
 
-    acc.push(curr);
-    return acc;
-  }, []);
-
-  return normalized_filter.map(v => v === "" ? path.sep : v);
+  return normalized_split.map(v => v === "" ? path.sep : v);
 }
+
+console.log(resolvePathRight("/../path/", "/path/abs.js"))
 
 module.exports = resolvePathRight;
