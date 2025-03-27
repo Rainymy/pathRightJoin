@@ -2,11 +2,15 @@
   "name": "path-right-join",
   "version": "1.0.0",
   "description": " Right-side join for paths",
-  "main": "./index.js",
-  "type": "commonjs",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "node esbuild.js",
+    "build": "npm run docs && npm run bundle",
     "package-test": "npm pack --dry-run",
+    "package": "npm pack",
+    "docs": "tsc -p jsconfig.json",
+    "docs_test": "tsc -p jsconfig.json",
+    "bundle": "node esbuild.js",
     "test": "jest"
   },
   "exports": {
@@ -34,6 +38,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "esbuild": "^0.25.1",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "typescript": "^5.8.2"
   }
 }
