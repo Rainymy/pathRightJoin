@@ -17,7 +17,7 @@
     "prepack": "npm run build",
     "====================== docs ======================": "",
     "docs:generate": "tsc",
-    "docs:remove_extra": "node ./cleanOutput.js -f dist/src",
+    "docs:remove_extra": "node ./build/cleanOutput.js -f dist/src",
     "===================== utils ======================": "",
     "build:clean": "node ./build/cleanOutput.js -f dist",
     "build:bundle": "node ./build/esbuild.js",
