@@ -1,0 +1,8 @@
+!dist/
+node_modules/
+src/
+test/
+index.js
+cleanOutput.js
+esbuild.js
+tsconfig.json
