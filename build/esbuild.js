@@ -18,7 +18,7 @@ async function build_ESM() {
     minify: false,
     platform: 'node',
     format: 'esm',
-    outfile: './dist/index.esm',
+    outfile: './dist/index.mjs',
   });
 }
 

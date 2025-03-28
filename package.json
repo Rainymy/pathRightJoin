@@ -4,7 +4,7 @@
   "description": " Right-side join for paths",
   "type": "commonjs",
   "main": "dist/index.cjs",
-  "module": "dist/index.esm",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
     "===================== build ======================": "",
