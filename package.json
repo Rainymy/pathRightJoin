@@ -5,11 +5,15 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "npm run docs && npm run bundle",
+    "build-part-1": "npm run clean && npm run docs",
+    "build-part-2": "npm run bundle && npm run removeDocsExtra",
+    "build": "npm run build-part-1 && npm run build-part-2",
     "package-test": "npm pack --dry-run",
     "package": "npm pack",
-    "docs": "tsc -p jsconfig.json",
-    "docs_test": "tsc -p jsconfig.json",
+    "prepack": "npm run build",
+    "docs": "tsc",
+    "removeDocsExtra": "node ./cleanOutput.js -f dist/src",
+    "clean": "node ./cleanOutput.js -f dist",
     "bundle": "node esbuild.js",
     "test": "jest"
   },
