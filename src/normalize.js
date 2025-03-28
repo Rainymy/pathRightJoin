@@ -13,16 +13,12 @@ const { SEGMENTS, SYSTEM_SLASH } = require("./constants");
 function normalizePath(inputPath) {
   if (typeof inputPath !== 'string') throw new Error("Provide a path string.");
 
-  const normalizedInput = toUnixSlashes(inputPath);
+  const normalizedInput = toUnixSlashes(inputPath.trim());
   const segments = normalizedInput.split(SYSTEM_SLASH);
 
   const stack = [];
   for (const segment of segments) {
     if (isIgnorable(segment)) continue;
-
-    if (isEspecialSegment(segment) && handleEspecialSegment(stack)) {
-      stack.pop();
-    }
 
     stack.push(segment);
   }
@@ -78,7 +74,7 @@ function isEspecialSegment(segment) {
 */
 function isAbsolutePath(inputPath, stack) {
   const startsWithSlash = inputPath.startsWith(SYSTEM_SLASH);
-  return startsWithSlash && !isEspecialSegment(stack[0]);
+  return startsWithSlash; // && isEspecialSegment(stack[0]);
 }
 
 /**

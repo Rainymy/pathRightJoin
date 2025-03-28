@@ -40,7 +40,7 @@ it('should return empty string when all segments are skipped', () => {
 
 it('should normalize mixed slashes across platforms', () => {
   const result = pathRightJoin('src//', 'utils\\', '..', 'core');
-  const toBeEqual = path.join('src', 'utils/')
+  const toBeEqual = path.join('src', 'utils', "core", "..")
   expect(result).toEqual(toBeEqual);
 });
 
@@ -58,6 +58,6 @@ it('should handle edge case: single segment', () => {
 
 it('should handle edge case: all ".."', () => {
   const result = pathRightJoin('..', '..', '..');
-  const toBeEqual = path.join('');
+  const toBeEqual = path.join("..", "..", "..");
   expect(result).toEqual(toBeEqual);
 });

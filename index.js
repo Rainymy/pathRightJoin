@@ -9,34 +9,42 @@ const { SYSTEM_SLASH, SEGMENTS } = require("./src/constants");
 * @returns {string} Normalized, right-joined path.
 */
 function resolvePathToRight(...segments) {
-  const normalizedSegments = getNormalizedPathSegments(segments);
-  const resolvedSegments = [];
+  const normalizedSegments = getNormalizedSegments(segments);
+  const sgmtStack = [];
 
-  for (let i = 0; i < normalizedSegments.length; i++) {
-    const segment = normalizedSegments[i];
-    // Skip ".." and the next segment.
+  const getLastResolved = (sgmt) => sgmt[sgmt.length - 1];
+
+  for (const segment of normalizedSegments) {
     if (segment === SEGMENTS.SKIP_SEGMENT) {
-      i++;
+      sgmtStack.push(segment);
       continue;
     }
 
-    resolvedSegments.push(segment);
+    if (getLastResolved(sgmtStack) === SEGMENTS.SKIP_SEGMENT) {
+      sgmtStack.pop();
+      continue;
+    }
+
+    if (segment === SEGMENTS.EMPTY_SEGMENT) {
+      sgmtStack.push(SYSTEM_SLASH);
+      continue;
+    }
+
+    sgmtStack.push(segment);
   }
 
-  return path.join(...resolvedSegments);
+  return path.join(...sgmtStack);
 }
 
 /**
 * @param {String[]} paths
 * @returns {String[]}
 */
-function getNormalizedPathSegments(paths) {
+function getNormalizedSegments(paths) {
   const normalizedPaths = paths.map(normalizePath);
   const combinedPath = normalizedPaths.join(SYSTEM_SLASH);
 
   return normalizePath(combinedPath).split(SYSTEM_SLASH);
 }
-
-console.log("result => ", resolvePathToRight("../as", "/path/abs.js"))
 
 module.exports = resolvePathToRight;
