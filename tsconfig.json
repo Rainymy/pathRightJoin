@@ -13,8 +13,9 @@
       "jest"
     ]
   },
-  "files": [
-    "index.js"
+  "include": [
+    "index.js",
+    "src/*",
   ],
   "exclude": [
     "node_modules",
