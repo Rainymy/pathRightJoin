@@ -32,7 +32,17 @@
     "url": "git+https://github.com/Rainymy/pathRightJoin.git"
   },
   "keywords": [
-    "joinPathRight"
+    "path",
+    "join",
+    "right-join",
+    "path-join",
+    "path-utils",
+    "path-resolver",
+    "custom-path-join",
+    "skip-dotdot",
+    "resolve",
+    "normalize",
+    "cross-platform"
   ],
   "author": "Rainymy",
   "license": "MIT",
