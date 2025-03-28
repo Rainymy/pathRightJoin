@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": false,
+    "outDir": "dist",
+    "allowJs": true,
+    "checkJs": true
+  },
+  "typeAcquisition": {
+    "include": [
+      "jest"
+    ]
+  },
+  "files": [
+    "index.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
