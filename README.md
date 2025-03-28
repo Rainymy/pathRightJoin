@@ -1,28 +1,44 @@
-# path-right-join
+# 🧭 path-right-join
 
-> 🧭 A tiny Node.js utility to **right-side join paths**, skipping `..` segments from earlier path fragments. Think of it as a "directional override" to avoid unwanted path climbing.
+> A tiny Node.js utility to **right-side join paths**, skipping `..` segments from earlier path fragments. Think of it as a "directional override" to avoid unwanted path climbing.
+
+---
+
+# 🤔 Why Use this package?
+
+The native path.join() is great; until you need to join paths and preserve the rightmost segments, especially when dealing with full paths or globbed files.
 
 ---
 
 ## ✨ Features
 
-- ✅ **Directional Join**: Ignores `".."` segments in earlier path parts
-- 🧱 **Keeps the Right Path**: Later segments take priority
-- 📦 Fully Node.js-compatible (uses only the built-in `path` module)
-- 🧼 Outputs cross-platform paths
+- 🧱 **Keeps the Right Path**: Later segments take priority.
+- 📦 Fully Node.js-compatible.
+- 🧼 Cross-platform Safe: Normalized slashes (/) for consistent output.
 
 ---
+## 🧪 Examples
+```js
+// Example: Prevent ".." from climbing above `/path`
+joinRight("../", "/path/ab.js");  // "ab.js"
+joinRight('..', 'src', '..', 'dist', 'main.js');  // "main.js"
+joinRight('src//', 'utils\\', '..', 'core');  // "src/utils"
+```
 
-## 📦 Usage Example
+## 🔧 Usage Example
 ```js
 const joinRight = require("path-right-join");
+const glob = require("glob");
+const fs = require("fs");
 
-// Example: Prevent ".." from climbing above `/path`
-const result = joinRight("../", "/path/ab.js");  // "ab.js"
-const result = joinRight('..', 'src', '..', 'dist', 'main.js');  // "main.js"
-const result = joinRight('src//', 'utils\\', '..', 'core');  // "src/utils"
+// Example: copy files to a target folder, preserving only filenames
+// `glob` returns full paths to matching files.
+const files = glob.sync("./path/*.js");
 
-const edge_case = joinRight("/../", "/path/ab.js") // 🛑 /path/ab.js
+for (const file of files) {
+  const outputPath = joinRight("/folder/", "..", file); // → "/folder/filename.js"
+  fs.copyFileSync(file, outputPath);
+}
 ```
 
 ## 📦 Installation
