@@ -1,9 +1,5 @@
 const { toUnixSlashes, isDriveLetter } = require("./utils");
-
-const SYSTEM_SLASH = "/";
-const EMPTY_SEGMENT = "";
-const RELATIVE_SEGMENT = ".";
-const ESPECIAL_SEGMENT = "..";
+const { SEGMENTS, SYSEM_SLASH } = require("./enum");
 
 /**
  * Normalizes a given file path by resolving `.` and `..` segments,
@@ -18,7 +14,7 @@ function normalizePath(inputPath) {
   if (typeof inputPath !== 'string') throw new Error("Provide a path string.");
 
   const normalizedInput = toUnixSlashes(inputPath);
-  const segments = normalizedInput.split(SYSTEM_SLASH);
+  const segments = normalizedInput.split(SYSEM_SLASH);
 
   const stack = [];
   for (const segment of segments) {
@@ -41,7 +37,7 @@ function normalizePath(inputPath) {
 * @returns
 */
 function formatResult(stack, isAbsolutePath) {
-  const result = stack.join(SYSTEM_SLASH);
+  const result = stack.join(SYSEM_SLASH);
 
   // Handle drive-letter like C:/
   if (isDriveLetter(stack[0])) {
@@ -49,10 +45,11 @@ function formatResult(stack, isAbsolutePath) {
   }
 
   if (result) {
-    return (isAbsolutePath ? SYSTEM_SLASH : EMPTY_SEGMENT) + result;
+    const prefix = isAbsolutePath ? SYSEM_SLASH : SEGMENTS.EMPTY_SEGMENT;
+    return prefix + result;
   }
 
-  return (isAbsolutePath ? SYSTEM_SLASH : RELATIVE_SEGMENT);
+  return isAbsolutePath ? SYSEM_SLASH : SEGMENTS.RELATIVE_SEGMENT;
 }
 
 /**
@@ -60,7 +57,9 @@ function formatResult(stack, isAbsolutePath) {
 * @returns {Boolean}
 */
 function isIgnorable(segment) {
-  return (segment === EMPTY_SEGMENT || segment === RELATIVE_SEGMENT);
+  return [
+    SEGMENTS.EMPTY_SEGMENT, SEGMENTS.RELATIVE_SEGMENT
+  ].includes(segment);
 }
 
 /**
@@ -68,7 +67,7 @@ function isIgnorable(segment) {
 * @returns {Boolean}
 */
 function isEspecialSegment(segment) {
-  return segment === ESPECIAL_SEGMENT;
+  return segment === SEGMENTS.ESPECIAL_SEGMENT;
 }
 
 /**
@@ -78,7 +77,7 @@ function isEspecialSegment(segment) {
 * @returns {Boolean}
 */
 function isAbsolutePath(inputPath, stack) {
-  const startsWithSlash = inputPath.startsWith(SYSTEM_SLASH);
+  const startsWithSlash = inputPath.startsWith(SYSEM_SLASH);
   return startsWithSlash && !isEspecialSegment(stack[0]);
 }
 
@@ -88,8 +87,12 @@ function isAbsolutePath(inputPath, stack) {
 */
 function handleEspecialSegment(stack) {
   if (stack.length <= 0) return false;
+
   const segment = stack[stack.length - 1];
-  return segment !== ESPECIAL_SEGMENT && segment !== EMPTY_SEGMENT;
+  const isEspecialSegment = segment === SEGMENTS.ESPECIAL_SEGMENT;
+  const isEmptySegment = segment === SEGMENTS.EMPTY_SEGMENT;
+
+  return !isEspecialSegment && !isEmptySegment;
 };
 
 exports.normalizePath = normalizePath;

@@ -1,6 +1,7 @@
 const path = require("path");
 
 const { normalizePath } = require("./src/normalize");
+const { SYSEM_SLASH } = require("./src/enum");
 
 /**
 * Right-side join for paths, ignoring ".." from left segments.
@@ -15,7 +16,7 @@ function resolvePathRight(...segments) {
     const segment = normalized_segments[i];
     // Skip ".." and the next segment.
     if (segment === "..") {
-      if (normalized_segments[i + 1] === path.sep) i++;
+      if (normalized_segments[i + 1] === SYSEM_SLASH) i++;
       i++;
       continue;
     }
@@ -32,13 +33,14 @@ function resolvePathRight(...segments) {
 */
 function normalize_paths(paths) {
   const normalizedSegments = paths.map(normalizePath);
-  const normalized_split = normalizedSegments;
+  const normalized_split = normalizedSegments.join(SYSEM_SLASH);
 
-  console.log("normalized_split", normalized_split)
+  const normalize_full = normalizePath(normalized_split);
+  console.log("normalized_split", normalize_full, normalized_split)
 
-  return normalized_split.map(v => v === "" ? path.sep : v);
+  return paths.map(normalizePath).map(v => v === "" ? path.sep : v);
 }
 
-// console.log(resolvePathRight("/../path/", "/path/abs.js"))
+// console.log("result => ", resolvePathRight("/../path/", "/path/abs.js"))
 
 module.exports = resolvePathRight;
