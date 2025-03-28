@@ -4,7 +4,7 @@ module.exports = {
   SEGMENTS: {
     EMPTY_SEGMENT: "",
     RELATIVE_SEGMENT: ".",
-    ESPECIAL_SEGMENT: ".."
+    SKIP_SEGMENT: ".."
   },
-  SYSEM_SLASH: path.posix.sep
+  SYSTEM_SLASH: path.posix.sep
 }

@@ -1,5 +1,5 @@
 const { toUnixSlashes, isDriveLetter } = require("./utils");
-const { SEGMENTS, SYSEM_SLASH } = require("./enum");
+const { SEGMENTS, SYSTEM_SLASH } = require("./constants");
 
 /**
  * Normalizes a given file path by resolving `.` and `..` segments,
@@ -14,7 +14,7 @@ function normalizePath(inputPath) {
   if (typeof inputPath !== 'string') throw new Error("Provide a path string.");
 
   const normalizedInput = toUnixSlashes(inputPath);
-  const segments = normalizedInput.split(SYSEM_SLASH);
+  const segments = normalizedInput.split(SYSTEM_SLASH);
 
   const stack = [];
   for (const segment of segments) {
@@ -37,7 +37,7 @@ function normalizePath(inputPath) {
 * @returns
 */
 function formatResult(stack, isAbsolutePath) {
-  const result = stack.join(SYSEM_SLASH);
+  const result = stack.join(SYSTEM_SLASH);
 
   // Handle drive-letter like C:/
   if (isDriveLetter(stack[0])) {
@@ -45,11 +45,11 @@ function formatResult(stack, isAbsolutePath) {
   }
 
   if (result) {
-    const prefix = isAbsolutePath ? SYSEM_SLASH : SEGMENTS.EMPTY_SEGMENT;
+    const prefix = isAbsolutePath ? SYSTEM_SLASH : SEGMENTS.EMPTY_SEGMENT;
     return prefix + result;
   }
 
-  return isAbsolutePath ? SYSEM_SLASH : SEGMENTS.RELATIVE_SEGMENT;
+  return isAbsolutePath ? SYSTEM_SLASH : SEGMENTS.RELATIVE_SEGMENT;
 }
 
 /**
@@ -67,7 +67,7 @@ function isIgnorable(segment) {
 * @returns {Boolean}
 */
 function isEspecialSegment(segment) {
-  return segment === SEGMENTS.ESPECIAL_SEGMENT;
+  return segment === SEGMENTS.SKIP_SEGMENT;
 }
 
 /**
@@ -77,7 +77,7 @@ function isEspecialSegment(segment) {
 * @returns {Boolean}
 */
 function isAbsolutePath(inputPath, stack) {
-  const startsWithSlash = inputPath.startsWith(SYSEM_SLASH);
+  const startsWithSlash = inputPath.startsWith(SYSTEM_SLASH);
   return startsWithSlash && !isEspecialSegment(stack[0]);
 }
 
@@ -89,7 +89,7 @@ function handleEspecialSegment(stack) {
   if (stack.length <= 0) return false;
 
   const segment = stack[stack.length - 1];
-  const isEspecialSegment = segment === SEGMENTS.ESPECIAL_SEGMENT;
+  const isEspecialSegment = segment === SEGMENTS.SKIP_SEGMENT;
   const isEmptySegment = segment === SEGMENTS.EMPTY_SEGMENT;
 
   return !isEspecialSegment && !isEmptySegment;

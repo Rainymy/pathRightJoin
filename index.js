@@ -1,46 +1,42 @@
 const path = require("path");
 
 const { normalizePath } = require("./src/normalize");
-const { SYSEM_SLASH } = require("./src/enum");
+const { SYSTEM_SLASH, SEGMENTS } = require("./src/constants");
 
 /**
 * Right-side join for paths, ignoring ".." from left segments.
 * @param  {string[]} segments Any number of path segments.
 * @returns {string} Normalized, right-joined path.
 */
-function resolvePathRight(...segments) {
-  const normalized_segments = normalize_paths(segments);
-  const filteredSegments = [];
+function resolvePathToRight(...segments) {
+  const normalizedSegments = getNormalizedPathSegments(segments);
+  const resolvedSegments = [];
 
-  for (let i = 0; i < normalized_segments.length; i++) {
-    const segment = normalized_segments[i];
+  for (let i = 0; i < normalizedSegments.length; i++) {
+    const segment = normalizedSegments[i];
     // Skip ".." and the next segment.
-    if (segment === "..") {
-      if (normalized_segments[i + 1] === SYSEM_SLASH) i++;
+    if (segment === SEGMENTS.SKIP_SEGMENT) {
       i++;
       continue;
     }
 
-    filteredSegments.push(segment);
+    resolvedSegments.push(segment);
   }
 
-  return path.join(...filteredSegments);
+  return path.join(...resolvedSegments);
 }
 
 /**
 * @param {String[]} paths
 * @returns {String[]}
 */
-function normalize_paths(paths) {
-  const normalizedSegments = paths.map(normalizePath);
-  const normalized_split = normalizedSegments.join(SYSEM_SLASH);
+function getNormalizedPathSegments(paths) {
+  const normalizedPaths = paths.map(normalizePath);
+  const combinedPath = normalizedPaths.join(SYSTEM_SLASH);
 
-  const normalize_full = normalizePath(normalized_split);
-  console.log("normalized_split", normalize_full, normalized_split)
-
-  return paths.map(normalizePath).map(v => v === "" ? path.sep : v);
+  return normalizePath(combinedPath).split(SYSTEM_SLASH);
 }
 
-// console.log("result => ", resolvePathRight("/../path/", "/path/abs.js"))
+console.log("result => ", resolvePathToRight("../as", "/path/abs.js"))
 
-module.exports = resolvePathRight;
+module.exports = resolvePathToRight;
