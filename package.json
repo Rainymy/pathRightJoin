@@ -18,8 +18,8 @@
     "docs:generate": "tsc",
     "docs:remove_extra": "node ./cleanOutput.js -f dist/src",
     "===================== utils ======================": "",
-    "build:clean": "node ./cleanOutput.js -f dist",
-    "build:bundle": "node esbuild.js",
+    "build:clean": "node ./build/cleanOutput.js -f dist",
+    "build:bundle": "node ./build/esbuild.js",
     "===================== testing ====================": "",
     "test": "jest"
   },
