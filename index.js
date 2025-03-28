@@ -39,6 +39,6 @@ function normalize_paths(paths) {
   return normalized_split.map(v => v === "" ? path.sep : v);
 }
 
-console.log(resolvePathRight("/../path/", "/path/abs.js"))
+// console.log(resolvePathRight("/../path/", "/path/abs.js"))
 
 module.exports = resolvePathRight;
