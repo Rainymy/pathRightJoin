@@ -36,6 +36,7 @@ const fs = require("fs");
 const files = glob.sync("./path/*.js");
 
 for (const file of files) {
+  // file → ./path/filename.js
   const outputPath = joinRight("/folder/", "..", file); // → "/folder/filename.js"
   fs.copyFileSync(file, outputPath);
 }
