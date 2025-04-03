@@ -38,7 +38,6 @@ Example: Copy files to a target folder, preserving only filenames
       └── <empty>
 ```
 
-
 ```js
 const { joinRight } = require("path-right-join");
 const glob = require("glob");
