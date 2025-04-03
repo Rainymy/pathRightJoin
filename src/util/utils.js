@@ -1,17 +1,4 @@
 const path = require("path");
-const { normalizePath } = require("./normalize");
-const { SYSTEM_SLASH } = require("./constants");
-
-/**
-* @param {String[]} paths
-* @returns {String[]}
-*/
-function getNormalizedSegments(paths) {
-  const normalizedPaths = paths.map(normalizePath);
-  const combinedPath = normalizedPaths.join(SYSTEM_SLASH);
-
-  return normalizePath(combinedPath).split(SYSTEM_SLASH);
-}
 
 /**
 * Detect if string contains windows driver letter like C:
@@ -34,6 +21,5 @@ function toUnixSlashes(value) {
 
 module.exports = {
   toUnixSlashes: toUnixSlashes,
-  isDriveLetter: isDriveLetter,
-  getNormalizedSegments: getNormalizedSegments
+  isDriveLetter: isDriveLetter
 }

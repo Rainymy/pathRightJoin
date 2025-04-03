@@ -1,7 +1,7 @@
 const path = require("path");
 
-const { getNormalizedSegments } = require("./src/utils");
 const processSegments = require("./src/processSegment");
+const normalize = require("./src/normalize");
 
 /**
 * Right-side join for paths, ignoring ".." from left segments.
@@ -14,9 +14,13 @@ const processSegments = require("./src/processSegment");
 * @returns {string} Normalized, right-joined path.
 */
 function resolvePathToRight(...segments) {
-  const normalizedSegments = getNormalizedSegments(segments);
+  if (!segments.every(seg => typeof seg === "string")) {
+    throw new Error("Provide a path as string.");
+  }
 
-  const sgmtStack = processSegments(normalizedSegments);
+  const normalizedSegment = normalize(segments);
+
+  const sgmtStack = processSegments(normalizedSegment);
 
   return path.join(...sgmtStack);
 }
