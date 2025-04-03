@@ -18,7 +18,7 @@ joinRight('src//', 'utils\\', '..', 'core');      // "src/utils"
 ## 🔧 Usage Example
 Example: Copy files to a target folder, preserving only filenames
 
-```toml
+```sh
 # Folder structure
   root
   ├── src
