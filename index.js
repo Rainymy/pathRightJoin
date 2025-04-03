@@ -5,6 +5,11 @@ const { SYSTEM_SLASH, SEGMENTS } = require("./src/constants");
 
 /**
 * Right-side join for paths, ignoring ".." from left segments.
+*
+*
+* Normalizes a given file path by resolving `.` and `..` segments,
+* handling both Windows (`\\`) and Unix (`/`) slashes.
+* The output is always in forward-slash (`/`) format.
 * @param  {string[]} segments Any number of path segments.
 * @returns {string} Normalized, right-joined path.
 */
