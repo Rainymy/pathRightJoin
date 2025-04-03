@@ -1,11 +1,19 @@
 const esbuild = require("esbuild");
 
+/** @type {esbuild.BuildOptions} */
+const options = {
+  entryPoints: ['./index.js'],
+  platform: 'node',
+  bundle: true,
+  minify: false,
+  minifyIdentifiers: false,
+  minifySyntax: true,
+  logLevel: "info",
+}
+
 async function build_CJS() {
   await esbuild.build({
-    entryPoints: ['./index.js'],
-    bundle: true,
-    minify: false,
-    platform: 'node',
+    ...options,
     format: 'cjs',
     outfile: './dist/index.cjs',
   });
@@ -13,10 +21,7 @@ async function build_CJS() {
 
 async function build_ESM() {
   await esbuild.build({
-    entryPoints: ['./index.js'],
-    bundle: true,
-    minify: false,
-    platform: 'node',
+    ...options,
     format: 'esm',
     outfile: './dist/index.mjs',
   });
