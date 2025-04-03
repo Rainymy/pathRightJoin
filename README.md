@@ -9,15 +9,15 @@
 const { joinRight, pathConvertTo } = require("path-right-join");
 
 // joinRight(...segments: string[]): string
-joinRight("../", "/path/ab.js");                  // "ab.js"
-joinRight('..', 'src', '..', 'dist', 'main.js');  // "main.js"
-joinRight('src//', 'utils\\', '..', 'core');      // "src/utils"
+joinRight("../", "/path/ab.js");                 // "ab.js"
+joinRight('..', 'src', '..', 'dist', 'main.js'); // "main.js"
+joinRight('src//', 'utils\\', '..', 'core');     // "src/utils"
 
 // Converts mixed-format paths to the target platform style
 // pathConvertTo(path: string, mode?: win32 | posix)
-pathConvertTo("src//utils\\", "win32");           //  src\\utils\\
-pathConvertTo("src//utils\\", "posix");           //  src/utils/
-pathConvertTo("src//utils\\");                    //  src/utils/ (defaults to "posix")
+pathConvertTo("src//utils\\", "win32"); //  src\\utils\\
+pathConvertTo("src//utils\\", "posix"); //  src/utils/
+pathConvertTo("src//utils\\");          //  src/utils/ (defaults to "posix")
 ```
 
 ---
