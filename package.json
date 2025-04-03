@@ -16,7 +16,6 @@
     "package-test": "npm pack --dry-run",
     "package": "npm pack",
     "prepack": "npm run build",
-    "publish": "npm publish",
     "====================== docs ======================": "",
     "docs:generate": "tsc",
     "docs:remove_extra": "node ./build/cleanOutput.js -f dist/src",
