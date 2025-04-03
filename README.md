@@ -4,12 +4,6 @@
 
 ---
 
-## Why use this package?
-
-The native `path.join()` is great; Until you need to join paths and preserve the rightmost segments, especially when dealing with full paths or globbed files.
-
----
-
 ## Quickstart
 ```js
 const joinRight = require("path-right-join");
