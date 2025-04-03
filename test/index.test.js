@@ -1,5 +1,5 @@
-const path = require('path');
-const pathRightJoin = require('../index');
+const path = require('node:path');
+const { joinRight: pathRightJoin } = require('../index');
 
 test("should behave like native path.join for normal paths", () => {
   const result = pathRightJoin('src', './utils', './index.js');
@@ -19,12 +19,12 @@ test('simple test', () => {
   expect(result).toEqual(toBeEqual);
 });
 
-// test('simple test 2', () => {
-//   // Failing Edge case
-//   const result = pathRightJoin("/../", "/path/ab.js");
-//   const toBeEqual = path.join("/ab.js");
-//   expect(result).toEqual(toBeEqual);
-// });
+test('simple test 2', () => {
+  // Failing Edge case
+  const result = pathRightJoin("/../", "/path/ab.js");
+  const toBeEqual = path.join("/ab.js");
+  expect(result).toEqual(toBeEqual);
+});
 
 it('should handle multiple ".." segments correctly', () => {
   const result = pathRightJoin('..', 'src', '..', 'dist', 'main.js');
@@ -59,5 +59,11 @@ it('should handle edge case: single segment', () => {
 it('should handle edge case: all ".."', () => {
   const result = pathRightJoin('..', '..', '..');
   const toBeEqual = path.join("..", "..", "..");
+  expect(result).toEqual(toBeEqual);
+});
+
+it('should handle edge case: empty path', () => {
+  const result = pathRightJoin();
+  const toBeEqual = path.join();
   expect(result).toEqual(toBeEqual);
 });

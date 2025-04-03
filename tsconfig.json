@@ -16,6 +16,7 @@
   "include": [
     "index.js",
     "src/*",
+    "test"
   ],
   "exclude": [
     "node_modules",
