@@ -2,6 +2,8 @@
 
 > A tiny Node.js utility to **right-side join paths**, skipping `..` segments from earlier path fragments. Think of it as a "directional override" to avoid unwanted path climbing.
 
+This package is available on (`npm`)[https://www.npmjs.com/package/path-right-join].
+
 ---
 
 ## Quickstart
