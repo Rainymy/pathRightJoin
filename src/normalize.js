@@ -13,4 +13,4 @@ function normalize(paths) {
   return normalizePath(combinedPath).split(SYSTEM_SLASH);
 }
 
-module.exports = normalize;
+module.exports = { normalize: normalize }

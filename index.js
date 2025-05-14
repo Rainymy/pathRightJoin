@@ -1,7 +1,7 @@
-const path = require("path");
+const path = require("node:path");
 
-const processSegments = require("./src/processSegment");
-const normalize = require("./src/normalize");
+const { processSegments } = require("./src/processSegment");
+const { normalize } = require("./src/normalize");
 const { toUnixSlashes } = require("./src/util/utils");
 
 /**

@@ -48,4 +48,4 @@ function isIgnorable(segment) {
   ].includes(segment);
 }
 
-exports.normalizePath = normalizePath;
+module.exports = { normalizePath: normalizePath }

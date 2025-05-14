@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("node:path");
 
 /**
 * Detect if string contains windows driver letter like C:
