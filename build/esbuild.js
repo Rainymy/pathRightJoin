@@ -6,7 +6,8 @@ const options = {
   platform: "node",
   bundle: true,
   minify: false,
-  minifyIdentifiers: false,
+  minifyIdentifiers: true,
+  minifyWhitespace: false,
   minifySyntax: true,
   logLevel: "info",
 };
