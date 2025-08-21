@@ -5,18 +5,18 @@ const { normalize } = require("./src/normalize");
 const { toUnixSlashes } = require("./src/normalize");
 
 /**
-* Joins and normalizes path segments into a single system-formatted path.
-*
-* - Handles mixed slashes (`/` and `\\`) safely
-* - Collapses redundant separators and dot segments
-* - Supports Windows drive letters (e.g., `C:`)
-*
-* @param  {string[]} segments Any number of path segments.
-* @returns {string}
-* @throws If any of the segment is not a `string`
-*/
+ * Joins and normalizes path segments into a single system-formatted path.
+ *
+ * - Handles mixed slashes (`/` and `\\`) safely
+ * - Collapses redundant separators and dot segments
+ * - Supports Windows drive letters (e.g., `C:`)
+ *
+ * @param  {string[]} segments Any number of path segments.
+ * @returns {string}
+ * @throws If any of the segment is not a `string`
+ */
 function resolvePathToRight(...segments) {
-  if (!segments.every(seg => typeof seg === "string")) {
+  if (!segments.every((seg) => typeof seg === "string")) {
     throw new Error("Provide a path as string.");
   }
 
@@ -34,12 +34,12 @@ function resolvePathToRight(...segments) {
  * @returns {string} A path string normalized to the requested format
  */
 function pathConvertTo(pathFs, mode) {
-  // const seg = toUnixSlashes(pathFs).split(path.posix.sep);
-
-  return toUnixSlashes(pathFs).split(path.posix.sep).join(mode === "win32" ? path.win32.sep : path.posix.sep);
+  return toUnixSlashes(pathFs)
+    .split(path.posix.sep)
+    .join(mode === "win32" ? path.win32.sep : path.posix.sep);
 }
 
 module.exports = {
   joinRight: resolvePathToRight,
-  pathConvertTo: pathConvertTo
-}
+  pathConvertTo: pathConvertTo,
+};

@@ -1,8 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 
-const F_ARG = '-f';
-const argFlagIndex = process.argv.findIndex(v => v === F_ARG);
+
+const F_ARG = "-f";
+const argFlagIndex = process.argv.indexOf(F_ARG);
 if (argFlagIndex === -1) {
   throw new Error(`Argument: ${F_ARG} not found!`);
 }
@@ -31,8 +32,8 @@ function cleanUpOutputFolder(dist) {
       [
         "❌ Refusing to delete outside project root!",
         `  ⮡  Root  : ${resolvedRoot}`,
-        `  ⮡  Target: ${resolvedTarget}`
-      ].join("\n")
+        `  ⮡  Target: ${resolvedTarget}`,
+      ].join("\n"),
     );
   }
 
