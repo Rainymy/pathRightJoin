@@ -67,3 +67,9 @@ it('should handle edge case: empty path', () => {
   const toBeEqual = path.join();
   expect(result).toEqual(toBeEqual);
 });
+
+it('should handle edge case: only ..', () => {
+  const result = pathRightJoin("..");
+  const toBeEqual = path.join("..");
+  expect(result).toEqual(toBeEqual);
+});
