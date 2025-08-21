@@ -2,7 +2,7 @@ const path = require("node:path");
 
 const { processSegments } = require("./src/processSegment");
 const { normalize } = require("./src/normalize");
-const { toUnixSlashes } = require("./src/util/utils");
+const { toUnixSlashes } = require("./src/normalize");
 
 /**
 * Joins and normalizes path segments into a single system-formatted path.
@@ -34,9 +34,9 @@ function resolvePathToRight(...segments) {
  * @returns {string} A path string normalized to the requested format
  */
 function pathConvertTo(pathFs, mode) {
-  const seg = toUnixSlashes(pathFs).split(path.posix.sep);
+  // const seg = toUnixSlashes(pathFs).split(path.posix.sep);
 
-  return seg.join(mode === "win32" ? path.win32.sep : path.posix.sep);
+  return toUnixSlashes(pathFs).split(path.posix.sep).join(mode === "win32" ? path.win32.sep : path.posix.sep);
 }
 
 module.exports = {
