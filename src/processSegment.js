@@ -33,4 +33,4 @@ function processSegments(segments) {
   return stack;
 }
 
-module.exports = { processSegments: processSegments }
+module.exports = { processSegments: processSegments };
